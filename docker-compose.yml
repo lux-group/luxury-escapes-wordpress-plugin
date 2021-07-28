@@ -1,0 +1,22 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress
+    ports:
+      - 9999:80
+    environment:
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: my_pass
+      WORDPRESS_DEBUG: 1
+    volumes:
+      - ./:/var/www/html/wp-content/plugins/luxury-escapes-plugin
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: my_root_pass
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: my_pass

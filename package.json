@@ -1,0 +1,14 @@
+{
+  "name": "luxury-escapes-plugin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Luxury Escapes Plugin",
+  "author": "Luxury Escapes",
+  "devDependencies": {
+    "@wordpress/components": "^9.5.0",
+    "@wordpress/scripts": "^9.0.0"
+  },
+  "scripts": {
+    "zip": "rm luxury-escapes-plugin.zip; git archive --format=zip HEAD -o luxury-escapes-plugin.zip"
+  }
+}

@@ -1,0 +1,4 @@
+/* Search wp_register_style to find where this is loaded */
+.le-offers-carousel {
+  background: red;
+}
