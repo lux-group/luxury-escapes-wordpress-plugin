@@ -43,6 +43,23 @@ function le_offers_register_block() {
     filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
   );
 
+    // Enqueue Bootstrap CSS
+    wp_enqueue_style(
+      'bootstrap-css',
+      'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css',
+      array(),
+      '4.5.2'
+    );
+
+    // Enqueue Bootstrap JS
+    wp_enqueue_script(
+      'bootstrap-js',
+      'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js',
+      array('jquery'), // Bootstrap JS requires jQuery
+      '4.5.2',
+      true // Load it in the footer
+    );
+
   register_block_type( 'luxury-escapes-plugin/le-offers', array(
     'style' => 'le-offers',
     'editor_script' => 'le-offers',
@@ -61,11 +78,39 @@ function includeWithVariables($filePath, $variables = array()) {
 
 function renderCarousel($attrs, $content) {
   $placeId = $attrs['placeId'];
-  $url = "https://api.luxuryescapes.com/api/v2/public-offers/list?offerType=hotel%2Clast_minute_hotel%2Ctactical_ao_hotel&campaigns=&holidayTypes=&locations=&placeIds=$placeId&region=AU&occupancy%5B0%5D=2&brand=luxuryescapes";
+  $region = $attrs['region'];
+  $brand = $attrs['brand'];
+
+  $url = "https://api.luxuryescapes.com/api/v2/public-offers/list?offerType=hotel%2Clast_minute_hotel%2Ctactical_ao_hotel&campaigns=&holidayTypes=&locations=&placeIds=$placeId&region=$region&occupancy%5B0%5D=2&brand=$brand";
+  $url2 = "https://api.luxuryescapes.com/api/search/hotel/v1/list?placeIds=$placeId&region=$region&brand=$brand";
 
   $json = file_get_contents($url);
   $obj = json_decode($json);
   $attrs['offerIds'] = $obj->result;
+  $offerIds = $obj->result;
+  $commaSeparatedIds = implode(',', $offerIds);
+
+  $offerDetailsUrl = "https://api.luxuryescapes.com/api/v2/public-offers?offerIds=$commaSeparatedIds&region=AU&flightOrigin=OOL&brand=luxuryescapes";
+
+  $jsonDetails = file_get_contents($offerDetailsUrl);
+  $objDetails = json_decode($jsonDetails);
+  // $singleImage = $objDetails->result[0]->images[0]->id;
+
+  // $attrs['image'] = "https://images.luxuryescapes.com/q_auto:good,c_fill,g_auto,w_700,ar_16:9/$singleImage.webp";
+
+//   $imageList = array_map(function($image) {
+//     return "https://images.luxuryescapes.com/q_auto:good,c_fill,g_auto,w_700,ar_16:9/{$image->id}.webp";
+//   }, $objDetails->result[0]->images);
+//
+//   $attrs['images'] = $imageList;
+
+  foreach($objDetails->result as $offer) {
+    $offer->imageList = array_map(function($image) {
+      return "https://images.luxuryescapes.com/q_auto:good,c_fill,g_auto,w_700,ar_16:9/{$image->id}.webp";
+    }, $offer->images);
+  }
+  $attrs['offers'] = $objDetails->result;
+
   return includeWithVariables('template.php', $attrs);
 }
 
