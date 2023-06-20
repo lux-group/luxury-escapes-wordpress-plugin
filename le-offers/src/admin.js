@@ -23,6 +23,7 @@ registerBlockType( 'luxury-escapes-plugin/le-offers', {
       setAttributes,
     } = props;
 
+    // TODO: make those fields required
     return (
       <div className={ className }>
         <TextControl

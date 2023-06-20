@@ -77,6 +77,7 @@ function includeWithVariables($filePath, $variables = array()) {
 }
 
 function renderCarousel($attrs, $content) {
+  // TODO: do error handling if no attrs are entered
   $placeId = $attrs['placeId'];
   $region = $attrs['region'];
   $brand = $attrs['brand'];
@@ -94,15 +95,6 @@ function renderCarousel($attrs, $content) {
 
   $jsonDetails = file_get_contents($offerDetailsUrl);
   $objDetails = json_decode($jsonDetails);
-  // $singleImage = $objDetails->result[0]->images[0]->id;
-
-  // $attrs['image'] = "https://images.luxuryescapes.com/q_auto:good,c_fill,g_auto,w_700,ar_16:9/$singleImage.webp";
-
-//   $imageList = array_map(function($image) {
-//     return "https://images.luxuryescapes.com/q_auto:good,c_fill,g_auto,w_700,ar_16:9/{$image->id}.webp";
-//   }, $objDetails->result[0]->images);
-//
-//   $attrs['images'] = $imageList;
 
   foreach($objDetails->result as $offer) {
     $offer->imageList = array_map(function($image) {
