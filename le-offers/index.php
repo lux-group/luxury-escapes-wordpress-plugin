@@ -77,31 +77,11 @@ function includeWithVariables($filePath, $variables = array()) {
 }
 
 function renderCarousel($attrs, $content) {
-  // TODO: do error handling if no attrs are entered
   $placeId = $attrs['placeId'];
   $region = $attrs['region'];
-  $brand = $attrs['brand'];
-
-  $url = "https://api.luxuryescapes.com/api/v2/public-offers/list?offerType=hotel%2Clast_minute_hotel%2Ctactical_ao_hotel&campaigns=&holidayTypes=&locations=&placeIds=$placeId&region=$region&occupancy%5B0%5D=2&brand=$brand";
-  $url2 = "https://api.luxuryescapes.com/api/search/hotel/v1/list?placeIds=$placeId&region=$region&brand=$brand";
-
-  $json = file_get_contents($url);
-  $obj = json_decode($json);
-  $attrs['offerIds'] = $obj->result;
-  $offerIds = $obj->result;
-  $commaSeparatedIds = implode(',', $offerIds);
-
-  $offerDetailsUrl = "https://api.luxuryescapes.com/api/v2/public-offers?offerIds=$commaSeparatedIds&region=AU&flightOrigin=OOL&brand=luxuryescapes";
-
-  $jsonDetails = file_get_contents($offerDetailsUrl);
-  $objDetails = json_decode($jsonDetails);
-
-  foreach($objDetails->result as $offer) {
-    $offer->imageList = array_map(function($image) {
-      return "https://images.luxuryescapes.com/q_auto:good,c_fill,g_auto,w_700,ar_16:9/{$image->id}.webp";
-    }, $offer->images);
-  }
-  $attrs['offers'] = $objDetails->result;
+  $holidays = $attrs['holidays'];
+  $holidays2 = $attrs['holidays2'];
+  $holidays3 = $attrs['holidays3'];
 
   return includeWithVariables('template.php', $attrs);
 }
