@@ -9,19 +9,37 @@ registerBlockType( 'luxury-escapes-plugin/le-offers', {
     placeId: {
       type: 'string',
     },
+    region: {
+      type: 'string',
+    },
+    brand: {
+      type: 'string',
+    },
   },
   edit: ( props ) => {
     const {
       className,
-      attributes: { placeId },
+      attributes: { placeId, region, brand },
       setAttributes,
     } = props;
 
+    // TODO: make those fields required
     return (
       <div className={ className }>
         <TextControl
+          label="Place ID"
           value={placeId}
           onChange={(value) => setAttributes({ placeId: value })}
+        />
+        <TextControl
+          label="Region"
+          value={region}
+          onChange={(value) => setAttributes({ region: value })}
+        />
+        <TextControl
+          label="Brand"
+          value={brand}
+          onChange={(value) => setAttributes({ brand: value })}
         />
       </div>
     );

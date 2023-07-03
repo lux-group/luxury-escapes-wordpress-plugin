@@ -15,6 +15,7 @@ services:
 
   mysql:
     image: mysql:5.7
+    platform: linux/amd64
     environment:
       MYSQL_ROOT_PASSWORD: my_root_pass
       MYSQL_DATABASE: wordpress

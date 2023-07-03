@@ -9,6 +9,7 @@
     "@wordpress/scripts": "^9.0.0"
   },
   "scripts": {
-    "zip": "rm luxury-escapes-plugin.zip; git archive --format=zip HEAD -o luxury-escapes-plugin.zip"
+    "zip": "rm luxury-escapes-plugin.zip; git archive --format=zip HEAD -o luxury-escapes-plugin.zip",
+    "build": "wp-scripts build le-offers/src/admin.js --output-path=le-offers/build"
   }
 }
