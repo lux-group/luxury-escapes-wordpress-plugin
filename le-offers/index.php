@@ -19,21 +19,12 @@ defined( 'ABSPATH' ) || exit;
 function le_offers_register_block() {
   // automatically load dependencies and version
   $admin_assets = include( plugin_dir_path( __FILE__ ) . 'build/admin.asset.php');
-  $offers_carousel_assets = include( plugin_dir_path( __FILE__ ) . 'build/offers-carousel.asset.php');
 
   wp_register_script(
     'le-offers',
     plugins_url( 'build/admin.js', __FILE__ ),
     $admin_assets['dependencies'],
     $admin_assets['version']
-  );
-
-  wp_enqueue_script(
-    'le-offers-carousel',
-    plugins_url( 'build/offers-carousel.js', __FILE__ ),
-    $offers_carousel_assets['dependencies'],
-    $offers_carousel_assets['version'],
-    true // put it at the end of the body, so page is loaded when it runs
   );
 
   wp_register_style(
@@ -79,10 +70,9 @@ function includeWithVariables($filePath, $variables = array()) {
 function renderCarousel($attrs, $content) {
   // TODO: do error handling if no attrs are entered
   $placeIds = $attrs['placeIds'];
-  $region = $attrs['region'];
   $holidays = $attrs['holidays'];
-  $holidays2 = $attrs['holidays2'];
-  $holidays3 = $attrs['holidays3'];
+  $campaigns = $attrs['campaigns'];
+
 
 //   $url = "https://api.luxuryescapes.com/api/v2/public-offers/list?offerType=hotel%2Clast_minute_hotel%2Ctactical_ao_hotel&campaigns=&holidayTypes=&locations=&placeIds=$placeId&region=$region&occupancy%5B0%5D=2&brand=$brand";
 //   $url2 = "https://api.luxuryescapes.com/api/search/hotel/v1/list?placeIds=$placeId&region=$region&holidayTypes=$holiday&locations=$locations&brand=luxuryescapes";
