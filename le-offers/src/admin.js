@@ -67,12 +67,10 @@ registerBlockType("luxury-escapes-plugin/le-offers", {
                 checked={offerTypes.includes(offerType)}
                 onChange={isChecked => {
                   if (isChecked) {
-                    // If the checkbox was checked, add the offer type to the selected list
                     setAttributes({
                       offerTypes: [...offerTypes, offerType]
                     });
                   } else {
-                    // If the checkbox was unchecked, remove the offer type from the selected list
                     setAttributes({
                       offerTypes: offerTypes.filter(h => h !== offerType)
                     });
@@ -94,12 +92,10 @@ registerBlockType("luxury-escapes-plugin/le-offers", {
                 checked={placeIds.includes(location.placeId)}
                 onChange={isChecked => {
                   if (isChecked) {
-                    // If the checkbox was checked, add the holiday to the selected list
                     setAttributes({
                       placeIds: [...placeIds, location.placeId]
                     });
                   } else {
-                    // If the checkbox was unchecked, remove the holiday from the selected list
                     setAttributes({
                       placeIds: placeIds.filter(h => h !== location.placeId)
                     });
@@ -121,10 +117,8 @@ registerBlockType("luxury-escapes-plugin/le-offers", {
                 checked={holidays.includes(holiday.name)}
                 onChange={isChecked => {
                   if (isChecked) {
-                    // If the checkbox was checked, add the holiday to the selected list
                     setAttributes({ holidays: [...holidays, holiday.name] });
                   } else {
-                    // If the checkbox was unchecked, remove the holiday from the selected list
                     setAttributes({
                       holidays: holidays.filter(h => h !== holiday.name)
                     });
@@ -146,10 +140,8 @@ registerBlockType("luxury-escapes-plugin/le-offers", {
                 checked={campaigns.includes(campaign.name)}
                 onChange={isChecked => {
                   if (isChecked) {
-                    // If the checkbox was checked, add the holiday to the selected list
                     setAttributes({ campaigns: [...campaigns, campaign.name] });
                   } else {
-                    // If the checkbox was unchecked, remove the holiday from the selected list
                     setAttributes({
                       campaigns: campaigns.filter(h => h !== campaign.name)
                     });
