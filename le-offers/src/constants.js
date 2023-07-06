@@ -1,3 +1,12 @@
+export const OFFER_TYPES = [
+  "hotel",
+  "last_minute_hotel",
+  "tactical_ao_hotel",
+  "bedbank_hotel",
+  "tour",
+  "tour_v2"
+];
+
 export const LOCATIONS = [
   {
     placeId: "le_64930b7151b6bc3e289f37d5da62ac9f",

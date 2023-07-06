@@ -1,13 +1,22 @@
 import { registerBlockType } from "@wordpress/blocks";
 import { CheckboxControl } from "@wordpress/components";
 import { truncateText } from "./utils";
-import { LOCATIONS, HOLIDAY_TAGS, CAMPAIGN_TAGS } from "./constants";
+import {
+  OFFER_TYPES,
+  LOCATIONS,
+  HOLIDAY_TAGS,
+  CAMPAIGN_TAGS
+} from "./constants";
 
 registerBlockType("luxury-escapes-plugin/le-offers", {
   title: "LE Offers",
   icon: "index-card",
   category: "layout",
   attributes: {
+    offerTypes: {
+      type: [],
+      default: []
+    },
     placeIds: {
       type: [],
       default: []
@@ -27,7 +36,7 @@ registerBlockType("luxury-escapes-plugin/le-offers", {
   edit: props => {
     const {
       className,
-      attributes: { placeIds, holidays, campaigns },
+      attributes: { offerTypes, placeIds, holidays, campaigns },
       setAttributes
     } = props;
 
@@ -48,6 +57,33 @@ registerBlockType("luxury-escapes-plugin/le-offers", {
 
     return (
       <div className={className}>
+        <>
+          <label>Offer Type</label>
+          <hr className="divider" />
+          <div className="checkbox-columns">
+            {OFFER_TYPES.map(offerType => (
+              <CheckboxControl
+                label={offerType}
+                checked={offerTypes.includes(offerType)}
+                onChange={isChecked => {
+                  if (isChecked) {
+                    // If the checkbox was checked, add the offer type to the selected list
+                    setAttributes({
+                      offerTypes: [...offerTypes, offerType]
+                    });
+                  } else {
+                    // If the checkbox was unchecked, remove the offer type from the selected list
+                    setAttributes({
+                      offerTypes: offerTypes.filter(h => h !== offerType)
+                    });
+                  }
+                }}
+              />
+            ))}
+          </div>
+          <hr className="divider" />
+        </>
+
         <>
           <label>Location</label>
           <hr className="divider" />

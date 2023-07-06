@@ -69,13 +69,14 @@ function includeWithVariables($filePath, $variables = array()) {
 
 function renderCarousel($attrs, $content) {
   // TODO: do error handling if no attrs are entered
-  $placeIds = isset($attrs['placeIds']) ? implode(',', $attrs['placeIds']) : "";
-  $holidays = isset($attrs['holidays']) ? implode(',', $attrs['holidays']) : "";
-  // $campaigns = isset($attrs['campaigns']) ? implode(',', $attrs['campaigns']) : "";
+  $offerTypes = isset($attrs['offerTypes']) ? urlencode(implode(',', $attrs['offerTypes'])) : "";
+  $placeIds = isset($attrs['placeIds']) ? urlencode(implode(',', $attrs['placeIds'])) : "";
+  $holidays = isset($attrs['holidays']) ? urlencode(implode(',', $attrs['holidays'])) : "";
+  $campaigns = isset($attrs['campaigns']) ? urlencode(implode(',', $attrs['campaigns'])) : "";
 
 
 //   $url = "https://api.luxuryescapes.com/api/v2/public-offers/list?offerType=hotel%2Clast_minute_hotel%2Ctactical_ao_hotel&campaigns=&holidayTypes=&locations=&placeIds=$placeId&region=$region&occupancy%5B0%5D=2&brand=$brand";
-  $url = "https://api.luxuryescapes.com/api/search/hotel/v1/list?offerType=tactical_ao_hotel&placeIds=$placeIds&region=AU&occupancy=2&brand=luxuryescapes&holidayTypes=$holidays";
+  $url = "https://api.luxuryescapes.com/api/search/hotel/v1/list?offerType=$offerTypes&placeIds=$placeIds&region=AU&occupancy=2&brand=luxuryescapes&holidayTypes=$holidays&campaigns=$campaigns";
 
   $json = file_get_contents($url);
   $obj = json_decode($json);
