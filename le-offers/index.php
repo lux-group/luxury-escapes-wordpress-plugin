@@ -69,43 +69,31 @@ function includeWithVariables($filePath, $variables = array()) {
 
 function renderCarousel($attrs, $content) {
   // TODO: do error handling if no attrs are entered
-  $placeIds = $attrs['placeIds'][0];
-  $holidays = $attrs['holidays'];
-  $campaigns = $attrs['campaigns'];
+  $departure = $attrs['departure'];
+  $arrival = $attrs['arrival'];
+  $campaigns = isset($attrs['campaigns']) ? urlencode(implode(',', $attrs['campaigns'])) : "";
 
-
-  $url = "https://api.luxuryescapes.com/api/search/cruise/v1/list?departurePlaceId=${placeIds}&brand=luxuryescapes";
+  $url = "https://api.luxuryescapes.com/api/search/cruise/v1/list?departurePlaceId=${departure}&arrivalPlaceId=${arrival}&campaigns=${campaigns}&brand=luxuryescapes&limit=10";
 
   $json = file_get_contents($url);
 
   $obj = json_decode($json);
-  $offerIds = array_slice($obj->result, 0, 10);
+  $offerIds = $obj->result;
 
   $offers = [];
-  var_dump($offerIds);
+  
   foreach ($offerIds as $offerId) {
-    echo $offerId;
     $offerDetailsUrl = "https://api.luxuryescapes.com/api/cruise/v1/offers/$offerId?brand=luxuryescapes";
 
     $jsonDetails = file_get_contents($offerDetailsUrl);
     $objDetails = json_decode($jsonDetails);
-    var_dump($objDetails);
-    // Process the offer details
-    // $objDetails->imageList = array_map(function ($image) {
-    //     return "https://images.luxuryescapes.com/q_auto:good,c_fill,g_auto,w_700,ar_16:9/{$image->id}.webp";
-    // }, $objDetails->images);
-
-    // Add the offer details to the offers array
     $offers[] = $objDetails->result;
   }
-  var_dump($offers);
 
   $attrs['offers'] = $offers;
 
-  // $output = includeWithVariables('template.php', $attrs);
-  var_dump($output);
-   return includeWithVariables('template.php', $attrs);
-  // echo $output;
+  return includeWithVariables('template.php', $attrs);
+
 }
 
 add_action( 'init', 'le_offers_register_block' );
