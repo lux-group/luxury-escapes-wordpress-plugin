@@ -1,7 +1,7 @@
 import { registerBlockType } from "@wordpress/blocks";
 import { CheckboxControl, SelectControl } from "@wordpress/components";
 import { truncateText } from "./utils";
-import { LOCATIONS, HOLIDAY_TAGS, CAMPAIGN_TAGS } from "./constants";
+import { LOCATIONS, CRUISE_CAMPAIGN_TAGS } from "./constants";
 
 registerBlockType("luxury-escapes-plugin/le-offers", {
   title: "LE Offers",
@@ -61,7 +61,7 @@ registerBlockType("luxury-escapes-plugin/le-offers", {
           <label>Campaigns</label>
           <hr className="divider" />
           <div className="checkbox-columns">
-            {CAMPAIGN_TAGS.map(campaign => (
+            {CRUISE_CAMPAIGN_TAGS.map(campaign => (
               <CheckboxControl
                 label={truncateText(campaign.name)}
                 checked={campaigns.includes(campaign.name)}

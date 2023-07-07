@@ -3,7 +3,7 @@ export const LOCATIONS = [
     placeId: "",
     primaryText: "",
     abbreviation: "",
-    saveUpTo: 111
+    saveUpTo: 777
   },
   {
     placeId: "le_64930b7151b6bc3e289f37d5da62ac9f",
@@ -1605,3 +1605,41 @@ export const CAMPAIGN_TAGS = [
     updated_at: "2023-07-03T23:38:11.089Z"
   }
 ];
+export const CRUISE_CAMPAIGN_TAGS = [
+  {
+    id: 1,
+    name: "Sydney",
+    created_at: null,
+    updated_at: null
+  },
+  {
+    id: 2,
+    name: "Local Lux NZ",
+    created_at: null,
+    updated_at: null
+  },
+  {
+    id: 3,
+    name: "Margaret River",
+    created_at: null,
+    updated_at: null
+  },
+  {
+    id: 4,
+    name: "Great Ocean Road",
+    created_at: null,
+    updated_at: null
+  },
+  {
+    id: 4,
+    name: "Great Ocean Road",
+    created_at: null,
+    updated_at: null
+  },
+  {
+    id: 5,
+    name: "Southbank",
+    created_at: null,
+    updated_at: null
+  },
+]
