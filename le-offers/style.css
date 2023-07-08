@@ -1,6 +1,13 @@
 /* Search wp_register_style to find where this is loaded */
-.le-offers-carousel {
+.le-offers-wrapper {
   background: none;
+}
+
+.le-admin-offer-type-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
 }
 
 .checkbox-columns {

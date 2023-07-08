@@ -1,4 +1,4 @@
-<div class="le-offers-carousel">
+<div class="le-offers-wrapper">
   <?php if(count($offers) > 0): ?>
     <?php foreach($offers as $offer): ?>
       <div class="offer">
@@ -15,4 +15,3 @@
     <p>No available offers</p>
   <?php endif; ?>
 </div>
-

@@ -1,11 +1,13 @@
 import { registerBlockType } from "@wordpress/blocks";
-import { CheckboxControl } from "@wordpress/components";
-import { truncateText } from "./utils";
+import { RadioControl } from "@wordpress/components";
+// import { useState } from "@wordpress/element";
+import Accommodations from "./components/Accommodations";
+import Cruises from "./components/Cruises";
 import {
-  OFFER_TYPES,
+  OFFER_VARIANTS,
   LOCATIONS,
-  HOLIDAY_TAGS,
-  CAMPAIGN_TAGS
+  ACCOMMODATION_OFFER_TYPE,
+  CRUISE_OFFER_TYPE
 } from "./constants";
 
 registerBlockType("luxury-escapes-plugin/le-offers", {
@@ -13,33 +15,40 @@ registerBlockType("luxury-escapes-plugin/le-offers", {
   icon: "index-card",
   category: "layout",
   attributes: {
+    offerVariant: {
+      type: "string"
+    },
     offerTypes: {
-      type: [],
+      type: "array",
       default: []
     },
     placeIds: {
-      type: [],
+      type: "array",
       default: []
     },
     holidays: {
-      type: [],
+      type: "array",
       default: []
     },
     campaigns: {
-      type: [],
+      type: "array",
       default: []
     },
-    region: {
+    departure: {
+      type: "string"
+    },
+    arrival: {
       type: "string"
     }
   },
   edit: props => {
     const {
       className,
-      attributes: { offerTypes, placeIds, holidays, campaigns },
+      attributes: { offerVariant },
       setAttributes
     } = props;
 
+    // TODO: use this logic for fetching tags once we get rid of CORS errors
     // const [locations, setLocations] = useState([]);
     // const [holidayTypes, setHolidayTypes] = useState([]);
 
@@ -57,101 +66,21 @@ registerBlockType("luxury-escapes-plugin/le-offers", {
 
     return (
       <div className={className}>
-        <>
-          <label>Offer Type</label>
-          <hr className="divider" />
-          <div className="checkbox-columns">
-            {OFFER_TYPES.map(offerType => (
-              <CheckboxControl
-                label={offerType}
-                checked={offerTypes.includes(offerType)}
-                onChange={isChecked => {
-                  if (isChecked) {
-                    setAttributes({
-                      offerTypes: [...offerTypes, offerType]
-                    });
-                  } else {
-                    setAttributes({
-                      offerTypes: offerTypes.filter(h => h !== offerType)
-                    });
-                  }
-                }}
-              />
-            ))}
-          </div>
-          <hr className="divider" />
-        </>
+        <label>Offer Variant</label>
+        <hr className="divider" />
+        <div className="le-admin-offer-type-wrapper">
+          <RadioControl
+            selected={offerVariant}
+            options={OFFER_VARIANTS}
+            onChange={option => setAttributes({ offerVariant: option })}
+          />
+        </div>
+        <hr className="divider" />
 
-        <>
-          <label>Location</label>
-          <hr className="divider" />
-          <div className="checkbox-columns">
-            {LOCATIONS.map(location => (
-              <CheckboxControl
-                label={truncateText(location.primaryText)}
-                checked={placeIds.includes(location.placeId)}
-                onChange={isChecked => {
-                  if (isChecked) {
-                    setAttributes({
-                      placeIds: [...placeIds, location.placeId]
-                    });
-                  } else {
-                    setAttributes({
-                      placeIds: placeIds.filter(h => h !== location.placeId)
-                    });
-                  }
-                }}
-              />
-            ))}
-          </div>
-          <hr className="divider" />
-        </>
-
-        <>
-          <label>Holiday</label>
-          <hr className="divider" />
-          <div className="checkbox-columns">
-            {HOLIDAY_TAGS.map(holiday => (
-              <CheckboxControl
-                label={truncateText(holiday.name)}
-                checked={holidays.includes(holiday.name)}
-                onChange={isChecked => {
-                  if (isChecked) {
-                    setAttributes({ holidays: [...holidays, holiday.name] });
-                  } else {
-                    setAttributes({
-                      holidays: holidays.filter(h => h !== holiday.name)
-                    });
-                  }
-                }}
-              />
-            ))}
-          </div>
-          <hr className="divider" />
-        </>
-
-        <>
-          <label>Campaigns</label>
-          <hr className="divider" />
-          <div className="checkbox-columns">
-            {CAMPAIGN_TAGS.map(campaign => (
-              <CheckboxControl
-                label={truncateText(campaign.name)}
-                checked={campaigns.includes(campaign.name)}
-                onChange={isChecked => {
-                  if (isChecked) {
-                    setAttributes({ campaigns: [...campaigns, campaign.name] });
-                  } else {
-                    setAttributes({
-                      campaigns: campaigns.filter(h => h !== campaign.name)
-                    });
-                  }
-                }}
-              />
-            ))}
-          </div>
-          <hr className="divider" />
-        </>
+        {offerVariant === ACCOMMODATION_OFFER_TYPE && (
+          <Accommodations {...props} />
+        )}
+        {offerVariant === CRUISE_OFFER_TYPE && <Cruises {...props} />}
       </div>
     );
   },

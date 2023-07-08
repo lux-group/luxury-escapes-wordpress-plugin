@@ -1,10 +1,19 @@
-export const OFFER_TYPES = [
-  "hotel",
-  "last_minute_hotel",
-  "tactical_ao_hotel",
-  "bedbank_hotel",
-  "tour",
-  "tour_v2"
+export const ACCOMMODATION_OFFER_TYPE = "accommodation";
+export const CRUISE_OFFER_TYPE = "cruise";
+
+export const OFFER_VARIANTS = [
+  {
+    label: "Accommodation",
+    value: ACCOMMODATION_OFFER_TYPE
+  },
+  { label: "Cruise", value: CRUISE_OFFER_TYPE }
+];
+
+export const HOTEL_OFFER_TYPES = [
+  { label: "Hotel", value: "hotel" },
+  { label: "Last Minute Hotel", value: "last_minute_hotel" },
+  { label: "Tactical AO Hotel", value: "tactical_ao_hotel" },
+  { label: "Bedbank Hotel", value: "bedbank_hotel" }
 ];
 
 export const LOCATIONS = [
@@ -1606,5 +1615,44 @@ export const CAMPAIGN_TAGS = [
     name: "LS Bali Hero",
     created_at: "2023-07-03T23:38:11.089Z",
     updated_at: "2023-07-03T23:38:11.089Z"
+  }
+];
+
+export const CRUISE_CAMPAIGN_TAGS = [
+  {
+    id: 1,
+    name: "Sydney",
+    created_at: null,
+    updated_at: null
+  },
+  {
+    id: 2,
+    name: "Local Lux NZ",
+    created_at: null,
+    updated_at: null
+  },
+  {
+    id: 3,
+    name: "Margaret River",
+    created_at: null,
+    updated_at: null
+  },
+  {
+    id: 4,
+    name: "Great Ocean Road",
+    created_at: null,
+    updated_at: null
+  },
+  {
+    id: 4,
+    name: "Great Ocean Road",
+    created_at: null,
+    updated_at: null
+  },
+  {
+    id: 5,
+    name: "Southbank",
+    created_at: null,
+    updated_at: null
   }
 ];
