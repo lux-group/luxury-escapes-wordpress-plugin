@@ -59,3 +59,17 @@ To install the plugin, or upload a new version:
 2. run `yarn zip` to create a zip file of this plugin
 3. visit the wordpress plugins page, click "upload plugin", and upload the zip file.
 4. If it complains about the plugin not having a valid header, just visit https://dream.luxuryescapes.com/wp-admin/plugins.php and activate it from there.
+
+Plugin example screenshots:
+
+ACCOMMODATIONS WP PLUGIN:
+![ACCOMMODATIONS WP PLUGIN](https://user-images.githubusercontent.com/122294815/252036053-f9355972-3b08-435b-a1a6-aab9259eb9b0.png)
+
+ACCOMMODATIONS POST:
+![ACCOMMODATIONS POST](https://user-images.githubusercontent.com/122294815/252036721-a5c49bca-f11b-4cc3-977e-eee814af4506.png)
+
+CRUISES WP PLUGIN:
+![CRUISES WP PLUGIN](https://user-images.githubusercontent.com/122294815/252035037-437bcf20-719b-4f8f-9068-fca1368348ad.png)
+
+CRUISES POST:
+![CRUISES POST](https://user-images.githubusercontent.com/122294815/252036395-3530a441-28af-4581-b4fb-e130d771c5a7.png)
