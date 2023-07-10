@@ -1,10 +1,22 @@
-export const LOCATIONS = [
+export const ACCOMMODATION_OFFER_TYPE = "accommodation";
+export const CRUISE_OFFER_TYPE = "cruise";
+
+export const OFFER_VARIANTS = [
   {
-    placeId: "",
-    primaryText: "",
-    abbreviation: "",
-    saveUpTo: 777
+    label: "Accommodation",
+    value: ACCOMMODATION_OFFER_TYPE
   },
+  { label: "Cruise", value: CRUISE_OFFER_TYPE }
+];
+
+export const HOTEL_OFFER_TYPES = [
+  { label: "Hotel", value: "hotel" },
+  { label: "Last Minute Hotel", value: "last_minute_hotel" },
+  { label: "Tactical AO Hotel", value: "tactical_ao_hotel" },
+  { label: "Bedbank Hotel", value: "bedbank_hotel" }
+];
+
+export const LOCATIONS = [
   {
     placeId: "le_64930b7151b6bc3e289f37d5da62ac9f",
     primaryText: "Bali",
@@ -1605,6 +1617,7 @@ export const CAMPAIGN_TAGS = [
     updated_at: "2023-07-03T23:38:11.089Z"
   }
 ];
+
 export const CRUISE_CAMPAIGN_TAGS = [
   {
     id: 1,
@@ -1641,5 +1654,5 @@ export const CRUISE_CAMPAIGN_TAGS = [
     name: "Southbank",
     created_at: null,
     updated_at: null
-  },
-]
+  }
+];

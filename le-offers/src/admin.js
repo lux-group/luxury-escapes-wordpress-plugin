@@ -1,86 +1,86 @@
 import { registerBlockType } from "@wordpress/blocks";
-import { CheckboxControl, SelectControl } from "@wordpress/components";
-import { truncateText } from "./utils";
-import { LOCATIONS, CRUISE_CAMPAIGN_TAGS } from "./constants";
+import { RadioControl } from "@wordpress/components";
+// import { useState } from "@wordpress/element";
+import Accommodations from "./components/Accommodations";
+import Cruises from "./components/Cruises";
+import {
+  OFFER_VARIANTS,
+  LOCATIONS,
+  ACCOMMODATION_OFFER_TYPE,
+  CRUISE_OFFER_TYPE
+} from "./constants";
 
 registerBlockType("luxury-escapes-plugin/le-offers", {
   title: "LE Offers",
   icon: "index-card",
   category: "layout",
   attributes: {
+    offerVariant: {
+      type: "string"
+    },
+    offerTypes: {
+      type: "array",
+      default: []
+    },
     placeIds: {
-      type: [],
+      type: "array",
       default: []
     },
     holidays: {
-      type: [],
-      default: []
-    },
-    departure: {
-      type: [],
-      default: []
-    },
-    arrival: {
-      type: [],
+      type: "array",
       default: []
     },
     campaigns: {
-      type: [],
+      type: "array",
       default: []
     },
-    region: {
+    departure: {
+      type: "string"
+    },
+    arrival: {
       type: "string"
     }
   },
   edit: props => {
     const {
       className,
-      attributes: { arrival, departure, campaigns },
+      attributes: { offerVariant },
       setAttributes
     } = props;
 
+    // TODO: use this logic for fetching tags once we get rid of CORS errors
+    // const [locations, setLocations] = useState([]);
+    // const [holidayTypes, setHolidayTypes] = useState([]);
+
+    // useEffect(() => {
+    //   fetch('https://api.luxuryescapes.com/api/search/hotel/v1/places/trending?region=AU&brand=luxuryescapes')
+    //     .then(response => response.json())
+    //     .then(data => setLocations(data.result));
+    // }, []);
+    //
+    // useEffect(() => {
+    //   fetch('https://api.luxuryescapes.com/api/search/hotel/v1/popular/holiday-types?region=AU&brand=luxuryescapes&limit=100')
+    //     .then(response => response.json())
+    //     .then(data => setHolidayTypes(data.result));
+    // }, []);
+
     return (
       <div className={className}>
-        <>
-          <SelectControl
-            label="Departure"
-            value={departure}
-            options={LOCATIONS.map(location => ({ label: location.primaryText, value: location.placeId }))}
-            onChange={(value) => setAttributes({ departure: value })}
+        <label>Offer Variant</label>
+        <hr className="divider" />
+        <div className="le-admin-offer-type-wrapper">
+          <RadioControl
+            selected={offerVariant}
+            options={OFFER_VARIANTS}
+            onChange={option => setAttributes({ offerVariant: option })}
           />
-        </>
-        <>
-          <SelectControl
-            label="Arrival"
-            value={arrival}
-            options={LOCATIONS.map(location => ({ label: location.primaryText, value: location.placeId }))}
-            onChange={(value) => setAttributes({ arrival: value })}
-          />
-        </>
-        <>
-          <label>Campaigns</label>
-          <hr className="divider" />
-          <div className="checkbox-columns">
-            {CRUISE_CAMPAIGN_TAGS.map(campaign => (
-              <CheckboxControl
-                label={truncateText(campaign.name)}
-                checked={campaigns.includes(campaign.name)}
-                onChange={isChecked => {
-                  if (isChecked) {
-                    // If the checkbox was checked, add the holiday to the selected list
-                    setAttributes({ campaigns: [...campaigns, campaign.name] });
-                  } else {
-                    // If the checkbox was unchecked, remove the holiday from the selected list
-                    setAttributes({
-                      campaigns: campaigns.filter(h => h !== campaign.name)
-                    });
-                  }
-                }}
-              />
-            ))}
-          </div>
-          <hr className="divider" />
-        </>
+        </div>
+        <hr className="divider" />
+
+        {offerVariant === ACCOMMODATION_OFFER_TYPE && (
+          <Accommodations {...props} />
+        )}
+        {offerVariant === CRUISE_OFFER_TYPE && <Cruises {...props} />}
       </div>
     );
   },
